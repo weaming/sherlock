@@ -123,7 +123,7 @@ def sherlock(username):
     print("\033[1;92m[\033[0m\033[1;77m*\033[0m\033[1;92m] Saved: \033[37;1m{}\033[0m".format(username+".txt"))
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('username', help='check services with given username')
     parser.add_argument("-d", '--debug', help="enable debug mode", action="store_true")
@@ -131,7 +131,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.debug:
+        global DEBUG
         DEBUG = True
 
     if args.username:
         sherlock(args.username)
+
+
+if __name__ == "__main__":
+    main()
