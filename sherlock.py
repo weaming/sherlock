@@ -88,7 +88,7 @@ def check_social_network(data, username, headers, fname, social_network):
         print("\033[37;1m[\033[91;1m-\033[37;1m]\033[92;1m {}:\033[93;1m Error!".format(social_network))
 
 
-def sherlock(username):
+def sherlock(username, data_path):
     # Not sure why, but the banner messes up if i put into one print function
     print("\033[37;1m                                              .\"\"\"-.")
     print("\033[37;1m                                             /      \\")
@@ -108,7 +108,7 @@ def sherlock(username):
     	print("\033[1;92m[\033[0m\033[1;77m*\033[0m\033[1;92m] Removing previous file:\033[1;37m {}\033[0m".format(fname))
 
     print("\033[1;92m[\033[0m\033[1;77m*\033[0m\033[1;92m] Checking username\033[0m\033[1;37m {}\033[0m\033[1;92m on: \033[0m".format(username))
-    raw = open("data.json", "r", encoding="utf-8")
+    raw = open(data_path, "r", encoding="utf-8")
     data = json.load(raw)
 
     # User agent is needed because some sites does not
@@ -127,6 +127,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('username', help='check services with given username')
     parser.add_argument("-d", '--debug', help="enable debug mode", action="store_true")
+    parser.add_argument("--data-path", help="the data file path", default=os.getenv('SHERLOCK_DATA_PATH') or "data.json")
 
     args = parser.parse_args()
 
@@ -135,7 +136,7 @@ def main():
         DEBUG = True
 
     if args.username:
-        sherlock(args.username)
+        sherlock(args.username, args.data_path)
 
 
 if __name__ == "__main__":
